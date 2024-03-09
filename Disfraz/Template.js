@@ -8,7 +8,7 @@ import {
   StyleSheet,
   ScrollView,
 } from 'react-native';
-import {Header} from 'react-navigation'; //falta instalar este
+
 
 export default class Template extends Component {
   constructor(props) {

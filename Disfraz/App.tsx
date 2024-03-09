@@ -16,7 +16,9 @@ import {
   useColorScheme,
   View,
 } from 'react-native';
-import Temp from './Template'
+import Register from './screens/Register'
+import Navigation from './Navigation';
+import Login from './screens/Login';
 import {
   Colors,
   DebugInstructions,
@@ -63,7 +65,7 @@ function App(): React.JSX.Element {
   };
 
   return (
-    < Temp />
+    < Navigation />
   );
 }
 
