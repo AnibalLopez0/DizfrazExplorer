@@ -2,12 +2,11 @@ import React, { Component, useState, useEffect } from 'react';
 import { View, Text, TextInput, SafeAreaView, ImageBackground, Image, TouchableOpacity,
 ScrollView, 
 FlatList} from 'react-native';
-import {ButtonsLogin,ButtonsLoginText,Subtitle2} from './Styles';
+import {Buttons,ButtonsNormal,ButtonsNormal2,Input,Subtitle2} from './Styles';
 import ListProductHS from './ListProductHS';
 
-
-function Ticket(){
-  const [currentDateTime, setCurrentDateTime] = useState('');
+const Sell = () => {
+    const [currentDateTime, setCurrentDateTime] = useState('');
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -19,6 +18,8 @@ function Ticket(){
 
     return () => clearInterval(interval);
   }, []);
+
+  
 
   const productos = [
     {
@@ -48,8 +49,10 @@ function Ticket(){
     },
 
   ]
+  const totalPrecio = productos.reduce((total, producto) => total + producto.precio, 0);
+  const [dineroRecibido, setDineroRecibido] = useState('');
 
-  return(
+  return (
     <SafeAreaView>
       <ImageBackground
       source={require('./Images/background.png')}
@@ -69,24 +72,24 @@ function Ticket(){
       </View>
       <View style={{marginTop:'3%', marginLeft:'10%'}}>
         <Text style={[Subtitle2, {marginTop:20, marginLeft:10}]}>TOTAL</Text>
-        <Text style={[Subtitle2, {marginTop:-23, marginLeft:'75%'}]}>$$$</Text>
-        <Text style={[Subtitle2, {marginTop:20, marginLeft:10}]}>RECIBIDO</Text>
-        <Text style={[Subtitle2, {marginTop:-23, marginLeft:'75%'}]}>$$$</Text>
-        <Text style={[Subtitle2, {marginTop:20, marginLeft:10}]}>CAMBIO</Text>
-        <Text style={[Subtitle2, {marginTop:-23, marginLeft:'75%'}]}>$$$</Text>
+        
+        <Text style={[Subtitle2, {marginTop:-23, marginLeft:'72%'}]}>${totalPrecio}</Text>
+        <TextInput placeholder='DINERO RECIBIDO' 
+  placeholderTextColor={'#000000'}
+  keyboardType="numeric" value={dineroRecibido}
+  onChangeText={setDineroRecibido} style={Input}></TextInput>
       </View>
       <View style={{marginTop: '7%', marginLeft:'10%'}}>
-      <TouchableOpacity style={ButtonsLogin}>
-              <Text style={{fontSize: 16,
-    fontWeight: 'bold',
-    color: '#FFFFFF',
-    marginLeft: '10%',
-    marginTop: 10,}}>VOLVER A LA PAGINA PRINCIPAL</Text>
+      <TouchableOpacity style={ButtonsNormal}>
+              <Text style={Buttons}>CANCELAR</Text>
             </TouchableOpacity>
+        <TouchableOpacity style={[ButtonsNormal2, {marginTop: '-10%', marginLeft:'55%'}]}>
+              <Text style={Buttons}>VENDER</Text>
+         </TouchableOpacity>
       </View>
       </ImageBackground>
     </SafeAreaView>
-  );
+  )
 }
 
-export default Ticket;
+export default Sell

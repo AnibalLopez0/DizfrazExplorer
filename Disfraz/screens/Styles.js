@@ -50,6 +50,8 @@ export const Background = {
     fontSize: 16,
     fontWeight: 'bold',
     color: '#000000',
+    marginLeft: '10%',
+    marginTop: '5%',
   };
   export const ButtonsLoginText={
     fontSize: 16,
@@ -98,5 +100,19 @@ export const Background = {
     width:300,
     height:39,
     backgroundColor: '#B41C65',
+    borderRadius: 40,
+  };
+  export const ButtonsNormal=
+  {
+    width:100,
+    height:35,
+    backgroundColor: '#B41C65',
+    borderRadius: 40,
+  };
+  export const ButtonsNormal2=
+  {
+    width:100,
+    height:35,
+    backgroundColor: '#FB8DC8',
     borderRadius: 40,
   };

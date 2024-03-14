@@ -3,9 +3,8 @@ import { View, Text, TextInput, SafeAreaView, ImageBackground, Image, TouchableO
 ScrollView } from 'react-native';
 import {Subtitle2, Input, ButtonsNormal, ButtonsNormal2, Buttons} from './Styles';
 import Icons from 'react-native-vector-icons/Ionicons';
-
-function Edit() {
-  return(
+const ProductRegister = () => {
+  return (
     <SafeAreaView>
       <ImageBackground
       source={require('./Images/background.png')}
@@ -45,7 +44,7 @@ function Edit() {
         </View>
       </ImageBackground>
     </SafeAreaView>
-  );
+  )
 }
 
-export default Edit;
+export default ProductRegister
