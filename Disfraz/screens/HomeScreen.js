@@ -51,12 +51,12 @@ function HomeScreen() {
         style={{width: 1000, height: 1000}}>
         <View style={{marginLeft:'6%', marginTop:'2%'}}>
         <TextInput 
-  placeholder='BUSCAR' 
-  placeholderTextColor={'#000000'} 
-  style={Input}
-  onChangeText={text => setSearchTerm(text)}
-  value={searchTerm}
-/>
+          placeholder='BUSCAR' 
+          placeholderTextColor={'#000000'} 
+          style={Input}
+          onChangeText={text => setSearchTerm(text)}
+          value={searchTerm}
+        />
         <TouchableOpacity onPress={toggleVisibility} style={{marginTop:'-3.5%', marginLeft:'27%'}}>
         <Icons name="search" color={'black'} size={30} />
         </TouchableOpacity>
@@ -68,11 +68,11 @@ function HomeScreen() {
         <View style={{height:'60%', marginTop:'5%', marginLeft:'2%'}}>
           <Text style={[Subtitle, {marginBottom: '2%',}]}>RESULTADOS DE LA BUSQUEDAS</Text>
           <FlatList
-  data={productos.filter(item => item.Nombre.toLowerCase().includes(searchTerm.toLowerCase()))}
-  keyExtractor={(item) => item.Nombre}
-  renderItem={({item, index})=> <ListProductHS item={item}/>}
-  ItemSeparatorComponent={()=> <View style={{marginTop:10}}></View>}
-/>
+            data={productos.filter(item => item.Nombre.toLowerCase().includes(searchTerm.toLowerCase()))}
+            keyExtractor={(item) => item.Nombre}
+            renderItem={({item, index})=> <ListProductHS item={item}/>}
+            ItemSeparatorComponent={()=> <View style={{marginTop:10}}></View>}
+          />
         </View>
       )}
       
