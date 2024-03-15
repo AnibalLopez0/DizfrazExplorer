@@ -40,6 +40,7 @@ const Inventory = () => {
         <TouchableOpacity style={{marginLeft:'80%', marginTop:'3%'}}>
         <Icons name="add-circle" color={'#F72798'} size={50} />
         </TouchableOpacity>
+        <Text>INVENTARIO</Text>
         <View style={{height:'80%', marginTop:'5%', marginLeft:'2%'}}>
       <FlatList
       numColumns={2} 
