@@ -30,34 +30,57 @@ export default function App() {
           tabBarIcon: ({ color, size }) => (
             <Icons name="cart" color={'#B41C65'} size={40} />
           ),
+          headerStyle:{
+            backgroundColor: '#000',
+          },
+          headerTintColor: '#B41C65',
         }}/>
         <Tab.Screen name="Grafica" component={Graph} 
         options={{
           tabBarLabel: 'Gráfica',
           tabBarIcon: ({color, size}) => (
             <Icons name="bar-chart" color={"#B41C65"} size={40}></Icons>
-          )
+          ), 
+          headerStyle:{
+            backgroundColor: '#000',
+          },
+          headerTintColor: '#B41C65',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+          },
         }}/>
         <Tab.Screen name="Registro" component={Register} 
         options={{
           tabBarLabel: 'Agregar',
           tabBarIcon: ({color, size}) => (
             <Icons name="people-sharp" color={"#B41C65"} size={40}></Icons>
-          )
+          ),
+          headerStyle:{
+            backgroundColor: '#000',
+          },
+          headerTintColor: '#B41C65',
         }}/>
         <Tab.Screen name="Inventario" component={Inventory} 
         options={{
           tabBarLabel: 'Inventario',
           tabBarIcon: ({color, size}) => (
             <Icons name="search" color={"#B41C65"} size={40}></Icons>
-          )
+          ),
+          headerStyle:{
+            backgroundColor: '#000',
+          },
+          headerTintColor: '#B41C65',
         }}/>
         <Tab.Screen name="Agregar Producto" component={ProductRegister} 
         options={{
           tabBarLabel: 'Agregar',
           tabBarIcon: ({color, size}) => (
             <Icons name="add" color={"#B41C65"} size={40}></Icons>
-          )
+          ),
+          headerStyle:{
+            backgroundColor: '#000',
+          },
+          headerTintColor: '#B41C65',
         }}/>
       </Tab.Navigator>
     </NavigationContainer>

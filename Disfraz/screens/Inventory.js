@@ -42,14 +42,13 @@ const Inventory = () => {
         </TouchableOpacity>
         <Text>INVENTARIO</Text>
         <View style={{height:'80%', marginTop:'5%', marginLeft:'2%'}}>
-      <FlatList
-      numColumns={2} 
-        data={productos}
-        keyExtractor={(item) => item.Nombre}
-        renderItem={({item, index})=> <ListInventory item={item}/>}
-        ItemSeparatorComponent={()=> <View style={{marginTop:10}}></View>}
-        
-      />
+          <FlatList
+          numColumns={2} 
+            data={productos}
+            keyExtractor={(item) => item.Nombre}
+            renderItem={({item, index})=> <ListInventory item={item}/>}
+            ItemSeparatorComponent={()=> <View style={{marginTop:10}}></View>}            
+          />
       </View>
         </ImageBackground>
     </SafeAreaView>
