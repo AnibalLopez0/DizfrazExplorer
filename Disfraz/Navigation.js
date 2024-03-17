@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Text, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Icons from 'react-native-vector-icons/Ionicons';
 
 import HomeScreen from './screens/HomeScreen';
@@ -11,17 +12,21 @@ import Register from './screens/Register';
 import ProductRegister from './screens/ProductRegister';
 
 
+const HomeStackNavigator = createNativeStackNavigator();
+
+
 const Tab = createBottomTabNavigator();
 
 export default function App() {
   return (
     <NavigationContainer>
       <Tab.Navigator
-        tabBarOptions={{
-          activeTintColor: "#B41C65",
-          activeBackgroundColor: "#FFF",
-          inactiveTintColor: "#B41C65",
-          inactiveBackgroundColor: "#FB8DC8",
+        initialRouteName='Home'
+        screenOptions={{
+          tabBarActiveTintColor: "#B41C65",
+          tabBarActiveBackgroundColor: "#000",
+          tabBarInactiveTintColor: "#B41C65",
+          tabBarInactiveBackgroundColor: "#FB8DC8",
         }}
       >
         <Tab.Screen name="Home" component={HomeScreen} 
@@ -34,6 +39,10 @@ export default function App() {
             backgroundColor: '#000',
           },
           headerTintColor: '#B41C65',
+          headerTitleAlign: "center",
+          headerTitleStyle: {
+            fontWeight: 'bold',
+          },
         }}/>
         <Tab.Screen name="Grafica" component={Graph} 
         options={{
@@ -45,9 +54,7 @@ export default function App() {
             backgroundColor: '#000',
           },
           headerTintColor: '#B41C65',
-          headerTitleStyle: {
-            fontWeight: 'bold',
-          },
+          headerTitleAlign: "center"
         }}/>
         <Tab.Screen name="Registro" component={Register} 
         options={{
@@ -59,6 +66,7 @@ export default function App() {
             backgroundColor: '#000',
           },
           headerTintColor: '#B41C65',
+          headerTitleAlign: "center"
         }}/>
         <Tab.Screen name="Inventario" component={Inventory} 
         options={{
@@ -70,6 +78,7 @@ export default function App() {
             backgroundColor: '#000',
           },
           headerTintColor: '#B41C65',
+          headerTitleAlign: "center"
         }}/>
         <Tab.Screen name="Agregar Producto" component={ProductRegister} 
         options={{
@@ -81,6 +90,7 @@ export default function App() {
             backgroundColor: '#000',
           },
           headerTintColor: '#B41C65',
+          headerTitleAlign: "center",
         }}/>
       </Tab.Navigator>
     </NavigationContainer>

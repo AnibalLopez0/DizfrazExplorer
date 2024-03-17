@@ -3,6 +3,7 @@ import React from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import ListInventory from './ListInventory'
 import Icons from 'react-native-vector-icons/Ionicons';
+import { useNavigation } from '@react-navigation/native';
 import {Background, Buttons,ButtonsNormal,ButtonsNormal2,Input,Subtitle2} from './Styles';
 
 const Inventory = () => {
@@ -34,10 +35,14 @@ const Inventory = () => {
         },
     
       ]
+
+      const navigation = useNavigation();
+    
   return (
     <SafeAreaView>
         <ImageBackground source={require('./Images/background.png')} style={Background}>
-        <TouchableOpacity style={{marginLeft:'80%', marginTop:'3%'}}>
+        <TouchableOpacity style={{marginLeft:'80%', marginTop:'3%'}}
+        onPress={() => navigation.navigate("Agregar Producto")}>
         <Icons name="add-circle" color={'#F72798'} size={50} />
         </TouchableOpacity>
         <Text>INVENTARIO</Text>
