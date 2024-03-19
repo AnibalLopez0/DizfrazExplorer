@@ -5,7 +5,7 @@ import Icons from 'react-native-vector-icons/Ionicons';
 
 const ListProductHS = ({item}) => {
 
-    const {Nombre, precio, cantidad} = item
+    const {nombre, precio, stock} = item
   return (
     <View>
       <TouchableOpacity >
@@ -13,9 +13,9 @@ const ListProductHS = ({item}) => {
       <Icons name="eye" color={'red'} size={75} />
       </View>
         <View style={{marginTop:-65, marginLeft:90}}>
-        <Text style={Subtitle2}>{Nombre}</Text>
-        <Text style={Subtitle2}>{precio}</Text>
-        <Text style={Subtitle2}>{cantidad}</Text>
+        <Text style={Subtitle2}>{nombre}</Text>
+        <Text style={Subtitle2}>${precio}</Text>
+        <Text style={Subtitle2}>{stock}</Text>
         </View>
       </TouchableOpacity>
     </View>

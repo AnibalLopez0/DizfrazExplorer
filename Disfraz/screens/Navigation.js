@@ -5,11 +5,13 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Icons from 'react-native-vector-icons/Ionicons';
 
-import HomeScreen from './screens/HomeScreen';
-import Graph from './screens/Graph';
-import Inventory from './screens/Inventory';
-import Register from './screens/Register';
-import ProductRegister from './screens/ProductRegister';
+import HomeScreen from './HomeScreen';
+import Graph from './Graph';
+import Inventory from './StackProduct';
+import Register from './Register';
+import ProductRegister from './ProductRegister';
+
+
 
 
 const HomeStackNavigator = createNativeStackNavigator();
@@ -54,7 +56,10 @@ export default function App() {
             backgroundColor: '#000',
           },
           headerTintColor: '#B41C65',
-          headerTitleAlign: "center"
+          headerTitleAlign: "center",
+          headerTitleStyle: {
+            fontWeight: 'bold',
+          },
         }}/>
         <Tab.Screen name="Registro" component={Register} 
         options={{
@@ -66,19 +71,19 @@ export default function App() {
             backgroundColor: '#000',
           },
           headerTintColor: '#B41C65',
-          headerTitleAlign: "center"
+          headerTitleAlign: "center",
+          headerTitleStyle: {
+            fontWeight: 'bold',
+          },
         }}/>
         <Tab.Screen name="Inventario" component={Inventory} 
         options={{
           tabBarLabel: 'Inventario',
           tabBarIcon: ({color, size}) => (
             <Icons name="search" color={"#B41C65"} size={40}></Icons>
+
           ),
-          headerStyle:{
-            backgroundColor: '#000',
-          },
-          headerTintColor: '#B41C65',
-          headerTitleAlign: "center"
+          headerShown: false
         }}/>
         <Tab.Screen name="Agregar Producto" component={ProductRegister} 
         options={{
@@ -91,6 +96,9 @@ export default function App() {
           },
           headerTintColor: '#B41C65',
           headerTitleAlign: "center",
+          headerTitleStyle: {
+            fontWeight: 'bold',
+          },
         }}/>
       </Tab.Navigator>
     </NavigationContainer>

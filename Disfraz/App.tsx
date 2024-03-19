@@ -17,7 +17,7 @@ import {
   View,
 } from 'react-native';
 
-import Navigation from './Navigation';
+import Navigation from './screens/Navigation';
 
 
 import {
@@ -27,13 +27,7 @@ import {
   LearnMoreLinks,
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
-import Ticket from './screens/Ticket';
-import Product from './screens/Product';
-import HomeScreen from './screens/HomeScreen';
-import Register from './screens/Register';
-import Edit from './screens/Edit';
-import ProductRegister from './screens/ProductRegister';
-import Inventory from './screens/Inventory';
+
 
 
 type SectionProps = PropsWithChildren<{
