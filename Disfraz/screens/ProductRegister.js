@@ -18,7 +18,7 @@ const ProductRegister = () => {
 
   const enviarDatos = async () => {
     try {
-      const url = 'https://snek22.000webhostapp.com/insertar.php';
+      const url = 'https://snek22.000webhostapp.com/insertarproducto.php';
 
       const producto = 
         {
