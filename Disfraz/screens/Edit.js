@@ -23,21 +23,21 @@ function Edit({ route }) {
   placeholderTextColor={'#000000'}
     style={Input}></TextInput>
         <Text style={[Subtitle2, {marginTop:20, marginLeft:10}]}>CANTIDAD</Text>
-        <TextInput placeholder={typeof producto.stock === 'number' ? producto.stock.toString() : 'Cantidad'}
+        <TextInput placeholder={producto.stock}
   placeholderTextColor={'#000000'} keyboardType='numeric'
     style={Input}></TextInput>
         <Text style={[Subtitle2, {marginTop:20, marginLeft:10}]}>PRECIO</Text>
-        <TextInput placeholder={typeof producto.precio === 'number' ? `$ ${producto.precio.toString()}` : 'Precio'}
+        <TextInput placeholder={`$${producto.precio}`}
         keyboardType='numeric'
   placeholderTextColor={'#000000'}
     style={Input}></TextInput>
         <Text style={[Subtitle2, {marginTop:20, marginLeft:10}]}>PRECIO AL PUBLICO</Text>
-        <TextInput placeholder={typeof producto.PrecioPublico === 'number' ? `$ ${producto.PrecioPublico.toString()}` : 'PrecioAlPublico'}  
+        <TextInput placeholder={`$${producto.precio_publico}`}  
         keyboardType='numeric'
   placeholderTextColor={'#000000'}
     style={Input}></TextInput>
         <Text style={[Subtitle2, {marginTop:20, marginLeft:10}]}>TALLA</Text>
-        <TextInput placeholder={producto.Talla}
+        <TextInput placeholder={producto.Talla !== null ? producto.Talla : 'Indefinido'}
   placeholderTextColor={'#000000'}
     style={Input}></TextInput>
       </View>

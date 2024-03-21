@@ -1,19 +1,35 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TextInput, SafeAreaView, ImageBackground, TouchableOpacity, FlatList } from 'react-native';
+import { View, Text, SafeAreaView, ImageBackground, TouchableOpacity, FlatList } from 'react-native';
 import { ButtonsLogin, Subtitle2 } from './Styles';
 import ListProductHS from './ListProductHS';
-import { useRoute } from '@react-navigation/native';
-import { useNavigation } from '@react-navigation/native';
-import axios from 'axios'; // Paso 1: Importar axios
+import { useRoute, useNavigation } from '@react-navigation/native';
+import axios from 'axios';
 
 function Ticket() {
   const route = useRoute();
+  const navigation = useNavigation();
   const { dineroRecibido, totalPrecio, currentDateTime } = route.params;
   const [productos, setProductos] = useState([]);
-  const navigation = useNavigation();
+  const [cambio, setCambio] = useState(null);
 
   useEffect(() => {
-    // Paso 2: Definir la función obtenerProductos
+    console.log("Valores recibidos en Ticket:");
+    console.log("Dinero recibido:", dineroRecibido);
+    console.log("Total precio:", totalPrecio);
+    console.log("Fecha y hora actual:", currentDateTime);
+
+    // Convertir dineroRecibido a un número decimal
+    const dineroRecibidoNumeric = parseFloat(dineroRecibido);
+
+    // Calcular el cambio y limitar a 2 decimales
+    const cambioCalculado = (totalPrecio - dineroRecibidoNumeric).toFixed(2);
+
+    // Convertir el cambio a valor absoluto
+    const cambioAbsoluto = Math.abs(cambioCalculado);
+
+    // Actualizar el estado del cambio
+    setCambio(cambioAbsoluto);
+
     const obtenerProductos = async () => {
       try {
         const response = await axios.get('https://snek22.000webhostapp.com/productos.php');
@@ -27,7 +43,7 @@ function Ticket() {
       }
     };
 
-    obtenerProductos(); // Llama a obtenerProductos al cargar el componente
+    obtenerProductos();
   }, []);
 
   return (
@@ -54,7 +70,7 @@ function Ticket() {
           <Text style={[Subtitle2, { marginTop: 20, marginLeft: 10 }]}>RECIBIDO</Text>
           <Text style={[Subtitle2, { marginTop: -23, marginLeft: '75%' }]}>{dineroRecibido}</Text>
           <Text style={[Subtitle2, { marginTop: 20, marginLeft: 10 }]}>CAMBIO</Text>
-          <Text style={[Subtitle2, { marginTop: -23, marginLeft: '75%' }]}>$$$</Text>
+          <Text style={[Subtitle2, { marginTop: -23, marginLeft: '75%' }]}>{cambio !== null ? cambio : 'Calculando...'}</Text>
         </View>
         <View style={{ marginTop: '7%', marginLeft: '10%' }}>
           <TouchableOpacity style={ButtonsLogin}
