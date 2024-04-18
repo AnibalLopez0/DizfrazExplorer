@@ -49,7 +49,8 @@ function Edit({ route }) {
         })}>
               <Text style={Buttons}>CANCELAR</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={[ButtonsNormal2, {marginTop:-35, marginLeft:225}]}>
+            <TouchableOpacity style={[ButtonsNormal2, {marginTop:-35, marginLeft:225}]}
+             onPress={() => navigation.navigate("DetalleProducto", { producto })}>
               <Text style={Buttons}>TERMINAR</Text>
             </TouchableOpacity>
         </View>

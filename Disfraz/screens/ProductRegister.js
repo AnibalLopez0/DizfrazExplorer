@@ -17,8 +17,9 @@ const ProductRegister = () => {
   const [categoria, setCategoria] = useState('');
 
   const enviarDatos = async () => {
+    
     try {
-      const url = 'https://snek22.000webhostapp.com/insertar.php';
+      const url = 'https://snek22.000webhostapp.com/insertarproducto.php';
 
       const producto = 
         {
@@ -34,9 +35,15 @@ const ProductRegister = () => {
       const response = await axios.post(url, { productos: [producto] });
 
       console.log('Datos enviados correctamente:', response.data);
+      alert(nombre +' agregado correctamente');
+      navigation.reset({
+        index: 0,
+        routes: [{ name: 'Inventario' }],
+      })
     } catch (error) {
       console.error('Error al enviar los datos:', error, categoria, nombre,
       descripcion, precio, stock, talla, precioPublico);
+      alert('Error al enviar producto');
     }
   };
 
