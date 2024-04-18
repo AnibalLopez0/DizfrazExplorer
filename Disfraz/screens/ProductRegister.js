@@ -49,6 +49,16 @@ const ProductRegister = () => {
 
 
   const navigation = useNavigation();
+
+  const validarCampos = () => {
+    if (!nombre || !stock || !precio || !precioPublico || 
+        !talla || !categoria || !descripcion) {
+      alert('Por favor, completa todos los campos.');
+      return false;
+    }
+    return true;
+  }
+  
   return (
     <SafeAreaView>
       <ImageBackground
@@ -129,7 +139,11 @@ const ProductRegister = () => {
               <Text style={Buttons}>CANCELAR</Text>
             </TouchableOpacity>
             <TouchableOpacity style={[ButtonsNormal2, {marginTop:-35, marginLeft:225, marginBottom: '10%'}]}
-            onPress={enviarDatos}>
+            onPress={() => {
+              if (validarCampos()) {
+                enviarDatos();
+              }
+            }}>
               <Text style={Buttons}>TERMINAR</Text>
             </TouchableOpacity>
         </View>
