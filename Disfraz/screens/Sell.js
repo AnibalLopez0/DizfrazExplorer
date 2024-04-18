@@ -40,7 +40,7 @@ const Sell = () => {
     return () => clearInterval(interval);
   }, []);
 
-  const totalPrecio = productos.reduce((total, producto) => total + producto.precio, 0);
+  const totalPrecio = productos.reduce((total, producto) => total + parseFloat(producto.precio), 0);
 
   return (
     <SafeAreaView>
@@ -78,7 +78,8 @@ const Sell = () => {
             <Text style={[Buttons, { marginLeft: '7%' }]}>CANCELAR</Text>
           </TouchableOpacity>
           <TouchableOpacity style={[ButtonsNormal2, { marginTop: '-10%', marginLeft: '55%' }]}
-            onPress={() => navigation.navigate("Ticket", dineroRecibido, totalPrecio, currentDateTime)}>
+            onPress={() => navigation.navigate("Ticket", { dineroRecibido, totalPrecio, currentDateTime })}
+            >
             <Text style={[Buttons, { marginLeft: '20%' }]}>VENDER</Text>
           </TouchableOpacity>
         </View>

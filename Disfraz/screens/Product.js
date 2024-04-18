@@ -23,8 +23,8 @@ function Product({ route }){
         <Text style={[Subtitle2, {marginTop:20, marginLeft:10}]}>NOMBRE: {producto.nombre}</Text>
         <Text style={[Subtitle2, {marginTop:20, marginLeft:10}]}>CANTIDAD: {producto.stock}</Text>
         <Text style={[Subtitle2, {marginTop:20, marginLeft:10}]}>PRECIO: ${producto.precio}</Text>
-        <Text style={[Subtitle2, {marginTop:20, marginLeft:10}]}>PRECIO AL PUBLICO: ${producto.PrecioPublico}</Text>
-        <Text style={[Subtitle2, {marginTop:20, marginLeft:10}]}>TALLA: {producto.Talla}</Text>
+        <Text style={[Subtitle2, {marginTop:20, marginLeft:10}]}>PRECIO AL PUBLICO: ${producto.precio_publico}</Text>
+        <Text style={[Subtitle2, {marginTop:20, marginLeft:10}]}>TALLA: {producto.Talla !== null ? producto.Talla : 'Indefinido'}</Text>
         </View>
         <View style={{marginTop: '5%'}}>
         <TouchableOpacity style={[ButtonsNormal, {marginLeft: 25,}]}
