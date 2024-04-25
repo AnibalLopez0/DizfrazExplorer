@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { Text, View } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Icons from 'react-native-vector-icons/Ionicons';
@@ -10,18 +9,15 @@ import Graph from './Graph';
 import Inventory from './StackProduct';
 import Register from './Register';
 import ProductRegister from './ProductRegister';
+import ProveedorRegister from './ProveedorRegister';
 
-
-
-
-const HomeStackNavigator = createNativeStackNavigator();
 
 
 const Tab = createBottomTabNavigator();
 
 export default function App() {
   return (
-    <NavigationContainer>
+    
       <Tab.Navigator
         initialRouteName='Home'
         screenOptions={{
@@ -61,7 +57,7 @@ export default function App() {
             fontWeight: 'bold',
           },
         }}/>
-        <Tab.Screen name="Registro" component={Register} 
+        <Tab.Screen name="Registro" component={ProveedorRegister} 
         options={{
           tabBarLabel: 'Agregar',
           tabBarIcon: ({color, size}) => (
@@ -101,7 +97,6 @@ export default function App() {
           },
         }}/>
       </Tab.Navigator>
-    </NavigationContainer>
   );
 }
 

@@ -4,12 +4,17 @@ import {Background, ButtonsLogin, ButtonsLoginText, Input, SubtitleInput} from '
 import Icons from 'react-native-vector-icons/Ionicons';
 
 
-function Register() {
+const Register = ({navigation}) => {
   const [showPassword, setShowPassword] = useState(false);
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
+
+  const enviarDatos = () => {
+
+  }
+
   return (
     <SafeAreaView>
       <View>
@@ -46,6 +51,15 @@ function Register() {
           <View style={{flex: 1, alignItems:'center', marginTop:250}}>
             <TouchableOpacity style={ButtonsLogin}>
               <Text style={[ButtonsLoginText, {marginLeft:100}]}>REGISTRARSE</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+            onPress={() => navigation.navigate('Login')}>
+              <Text 
+              style={{fontSize: 16, 
+              fontWeight:'bold', 
+              textDecorationLine: 'underline', 
+              color: '#F72798', 
+              marginTop:30}}>ATRAS</Text>
             </TouchableOpacity>
           </View>
         </ImageBackground>

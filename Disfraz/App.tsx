@@ -18,6 +18,7 @@ import {
 } from 'react-native';
 
 import Navigation from './screens/Navigation';
+import Stack from './screens/Stack';
 
 
 import {
@@ -68,7 +69,7 @@ function App(): React.JSX.Element {
   };
 
   return (
-    <Navigation/> 
+    <Stack/> 
   );
 }
 

@@ -3,12 +3,20 @@ import { View, Text, TextInput, SafeAreaView, ImageBackground, TouchableOpacity,
 import Icons from 'react-native-vector-icons/Ionicons';
 import {Background, ButtonsLogin, ButtonsLoginText, Input, SubtitleInput} from './Styles';
 //style={{width: 800,height: 800,}} se me va olvidar
-function Login(navigation) {
+
+
+
+const Login = ({navigation}) => {
   const [showPassword, setShowPassword] = useState(false);
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
+
+  const validaCampos = () => {
+    
+  }
+  
   return (
     <SafeAreaView>
       <View>
@@ -29,10 +37,12 @@ function Login(navigation) {
           </View>
           </View>
           <View style={{flex: 1, alignItems:'center', marginTop:250}}>
-            <TouchableOpacity style={ButtonsLogin}>
+            <TouchableOpacity style={ButtonsLogin}
+            onPress={() => navigation.navigate('HomeScreen')}>
               <Text style={ButtonsLoginText}>INICIAR SESION</Text>
             </TouchableOpacity>
-            <TouchableOpacity>
+            <TouchableOpacity
+            onPress={() => navigation.navigate('Register')}>
               <Text 
               style={{fontSize: 16, 
               fontWeight:'bold', 
