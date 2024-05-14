@@ -29,7 +29,7 @@ const Register = ({navigation}) => {
       }
       const response = await axios.post(url, { empleados: [empleado] });
 
-      console.log('Empleado reagistrado correctamente:', response.data);
+      console.log('Empleado registrado correctamente:', response.data);
       alert(nombre +' agregado correctamente');
       navigation.reset({
         index: 0,

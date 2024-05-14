@@ -14,7 +14,7 @@ const ProveedorRegister = () =>  {
 
     const enviarDatos = async () => {
         try{
-            const url = "https://snek22.000webhostapp.com/insertarproveedor.php";
+            const url = "https://snek22.000webhostapp.com/insertarproovedor.php";
             const proveedor = 
             {
                 nombre: nombre,
@@ -26,11 +26,7 @@ const ProveedorRegister = () =>  {
 
             console.log('Proveedor reagistrado correctamente:', response.data);
             alert(nombre +' agregado correctamente');
-            navigation.reset({
-                index: 0,
-                routes: [{ name: 'Inventory' }],
-            })
-
+            vaciaInputs();
         }catch(error){
             console.error('Error al enviar los datos:', error, nombre, correo, telefono, ubicacion);
             alert('Error al registrar empleado');
@@ -44,6 +40,13 @@ const ProveedorRegister = () =>  {
         }
         return true;
     }
+
+    const vaciaInputs = () => {
+        setNombre('');
+        setCorreo('');
+        setTelefono('');
+        setUbicacion('');
+    };
 
     return(
         <SafeAreaView>
@@ -80,7 +83,10 @@ const ProveedorRegister = () =>  {
                     placeholder='Ubicacion'></TextInput>
                 </View>
                 <View style={{marginTop: '5%'}}>
-                <TouchableOpacity style={[ButtonsNormal, {marginLeft: 25,}]}>
+                <TouchableOpacity style={[ButtonsNormal, {marginLeft: 25,}]}
+                onPress={() => {
+                    vaciaInputs();
+                }}>
                     <Text style={Buttons}>CANCELAR</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={[ButtonsNormal2, {marginTop:-35, marginLeft:225}]}

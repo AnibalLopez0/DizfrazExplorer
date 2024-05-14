@@ -58,7 +58,7 @@ const ProductRegister = () => {
     }
     return true;
   }
-  
+
   return (
     <SafeAreaView>
       <ImageBackground
