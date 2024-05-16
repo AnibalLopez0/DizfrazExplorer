@@ -5,7 +5,7 @@ import {Buttons,ButtonsNormal,ButtonsNormal2,Input,Subtitle2} from './Styles';
 import { useNavigation } from '@react-navigation/native';
 const ListInventory = ({item}) => {
 
-    const {nombre, precio, stock, PrecioPublico, Talla} = item
+    const {nombre, precio, stock, PrecioPublico, Talla, descripcion, categoria, id_producto} = item
 
     const navigation = useNavigation();
   return (

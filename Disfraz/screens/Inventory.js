@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, FlatList, TouchableOpacity, ImageBackground } from 'react-native';
+import { View, Text, FlatList, TouchableOpacity, ImageBackground, Alert } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import ListInventory from './ListInventory';
 import Icons from 'react-native-vector-icons/Ionicons';
@@ -30,6 +30,7 @@ const Inventory = () => {
       }
     } catch (error) {
       console.error('Error:', error);
+      alert('Error al cargar los productos');
     } finally {
       setLoading(false);
     }
@@ -38,13 +39,16 @@ const Inventory = () => {
   return (
     <SafeAreaView>
       <ImageBackground source={require('./Images/background.png')} style={Background}>
-        <TouchableOpacity style={{ marginLeft: '80%', marginTop: '3%' }} onPress={() => navigation.navigate("Agregar Producto")}>
+
+      <TouchableOpacity style={{ marginLeft: '5%', marginTop: '3.5%' }} onPress={obtenerProductos}>
+          <Icons name="refresh-circle" color={'#F72798'} size={50} />
+        </TouchableOpacity>
+
+        <TouchableOpacity style={{ marginLeft: '80%', marginTop: '-13.5%' }} onPress={() => navigation.navigate("Agregar Producto")}>
           <Icons name="add-circle" color={'#F72798'} size={50} />
         </TouchableOpacity>
 
-        <TouchableOpacity style={{ marginLeft: '5%', marginTop: '-13%' }} onPress={obtenerProductos}>
-          <Icons name="refresh-circle" color={'#F72798'} size={50} />
-        </TouchableOpacity>
+        
 
         <View style={{ height: '80%', marginTop: '3%', marginLeft: '5%'}}>
           {loading ? (
