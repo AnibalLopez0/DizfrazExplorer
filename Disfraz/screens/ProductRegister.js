@@ -12,8 +12,8 @@ const ProductRegister = () => {
   const [descripcion, setDescripcion] = useState('');
   const [stock, setStock] = useState('');
   const [precio, setPrecio] = useState('');
-  const [precioPublico, setPrecioPublico] = useState('');
-  const [talla, setTalla] = useState('');
+  const [precio_publico, setPrecioPublico] = useState('');
+  const [Talla, setTalla] = useState('');
   const [categoria, setCategoria] = useState('');
 
   const enviarDatos = async () => {
@@ -28,8 +28,8 @@ const ProductRegister = () => {
           descripcion: descripcion,
           precio: parseFloat(precio),
           stock: parseInt(stock) ,
-          talla: parseInt(talla),
-          precioPublico: parseFloat(precioPublico)
+          Talla: Talla,
+          precio_publico: parseFloat(precio_publico)
         };
   
       const response = await axios.post(url, { productos: [producto] });
@@ -42,7 +42,7 @@ const ProductRegister = () => {
       })
     } catch (error) {
       console.error('Error al enviar los datos:', error, categoria, nombre,
-      descripcion, precio, stock, talla, precioPublico);
+      descripcion, precio, stock, Talla, precio_publico);
       alert('Error al enviar producto');
     }
   };
@@ -51,8 +51,8 @@ const ProductRegister = () => {
   const navigation = useNavigation();
 
   const validarCampos = () => {
-    if (!nombre || !stock || !precio || !precioPublico || 
-        !talla || !categoria || !descripcion) {
+    if (!nombre || !stock || !precio || !precio_publico || 
+        !Talla || !categoria || !descripcion) {
       alert('Por favor, completa todos los campos.');
       return false;
     }
@@ -102,7 +102,7 @@ const ProductRegister = () => {
               keyboardType='numeric'
               placeholderTextColor={'#000000'}
               style={Input}
-              value={precioPublico}
+              value={precio_publico}
               onChangeText={setPrecioPublico}
             />
             <Text style={[Subtitle2, {marginTop:20, marginLeft:10}]}>TALLA</Text>
@@ -110,7 +110,7 @@ const ProductRegister = () => {
               placeholder='TALLA'
               placeholderTextColor={'#000000'}
               style={Input}
-              value={talla}
+              value={Talla}
               onChangeText={setTalla}
             />
             <Text style={[Subtitle2, {marginTop:20, marginLeft:10}]}>CATEGORIA</Text>
