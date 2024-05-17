@@ -1,10 +1,13 @@
-import React, { Component, useState } from 'react';
+import React, { Component, useState, useEffect } from 'react';
 import { View, Text, TextInput, SafeAreaView, ImageBackground, Image, TouchableOpacity,
-ScrollView } from 'react-native';
+ScrollView, Button,
+ActivityIndicator} from 'react-native';
 import {Subtitle2, Input, ButtonsNormal, ButtonsNormal2, Buttons} from './Styles';
 import Icons from 'react-native-vector-icons/Ionicons';
 import axios from 'axios';
 import { useNavigation } from '@react-navigation/native';
+import { launchImageLibrary, ImagePicker } from 'react-native-image-picker';
+import { Picker } from '@react-native-picker/picker';
 
 
 const ProductRegister = () => {
@@ -15,6 +18,11 @@ const ProductRegister = () => {
   const [precio_publico, setPrecioPublico] = useState('');
   const [Talla, setTalla] = useState('');
   const [categoria, setCategoria] = useState('');
+
+  const [imageSource, setImageSource] = useState(null);
+  const [proveedores, setProveedores] = useState([]);
+  const [selectedProveedor, setSelectedProveedor] = useState('');
+
 
   const enviarDatos = async () => {
     
@@ -29,7 +37,8 @@ const ProductRegister = () => {
           precio: parseFloat(precio),
           stock: parseInt(stock) ,
           Talla: Talla,
-          precio_publico: parseFloat(precio_publico)
+          precio_publico: parseFloat(precio_publico),
+          id_proveedor: selectedProveedor
         };
   
       const response = await axios.post(url, { productos: [producto] });
@@ -59,6 +68,34 @@ const ProductRegister = () => {
     return true;
   }
 
+  const subirImagen = () => {
+    ImagePicker.launchImageLibrary({
+      title: 'Selecciona una imagen',
+      cancelButtonTitle: 'Cancelar',
+      takePhotoButtonTitle: 'Tomar foto',
+      chooseFromLibraryButtonTitle: 'Elegir de la galería',
+      quality: 0.5
+    }, response => {
+      if (response.didCancel) {
+        console.log('El usuario canceló la selección de imagen');
+      } else if (response.error) {
+        console.log('Error al seleccionar imagen: ', response.error);
+      } else {
+        // La imagen seleccionada se muestra en la aplicación
+        setImageSource({ uri: response.uri });
+      }
+    });
+  };
+
+
+  useEffect(() => {
+      fetch('https://snek22.000webhostapp.com/mostrarproveedores.php')
+          .then(response => response.json())
+          .then(data => setProveedores(data))
+          .catch(error => console.error('Error:', error));
+  }, []);
+
+ 
   return (
     <SafeAreaView>
       <ImageBackground
@@ -129,7 +166,29 @@ const ProductRegister = () => {
               value={descripcion}
               onChangeText={setDescripcion}
             />
+            <Text style={[Subtitle2, {marginTop:20, marginLeft:10}]}>PROVEEDOR</Text>
+            <Picker
+                selectedValue={selectedProveedor}
+                onValueChange={(itemValue, itemIndex) => setSelectedProveedor(itemValue)}
+                style={{
+                  backgroundColor: 'white',
+                  width: '80%',
+                  marginLeft: '2%'
+                }}
+            >
+                {proveedores.map(proveedor => (
+                    <Picker.Item
+                        key={proveedor.id_proveedor}
+                        label={`${proveedor.nombre} (${proveedor.correo}) (${proveedor.id_proveedor})`}
+                        value={proveedor.id_proveedor}
+                    />
+                ))}
+            </Picker>
           </View>
+          {/* <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+            {imageSource && <Image source={imageSource} style={{ width: 200, height: 200 }} />}
+            <Button title="Seleccionar imagen" onPress={subirImagen} />
+          </View> */}
           <View style={{marginTop: '5%'}}>
             <TouchableOpacity style={[ButtonsNormal, {marginLeft: 25,}]}
             onPress={() => navigation.reset({
