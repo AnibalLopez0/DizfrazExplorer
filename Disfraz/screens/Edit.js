@@ -6,42 +6,48 @@ import Icons from 'react-native-vector-icons/Ionicons';
 import { useNavigation } from '@react-navigation/native';
 import axios from 'axios';
 
-function Edit({ route }) {
+const Edit = ({ route }) => {
   const { producto } = route.params;
   const navigation = useNavigation();
 
-  const [nombre, setNombre] = useState(producto.nombre || ''); // Si producto.nombre está vacío, asigna ''
-  const [descripcion, setDescripcion] = useState(producto.descripcion || ''); // Si producto.descripcion está vacío, asigna ''
-  const [stock, setStock] = useState(producto.stock.toString() || ''); // Si producto.stock está vacío, asigna ''
-  const [precio, setPrecio] = useState(producto.precio.toString() || ''); // Si producto.precio está vacío, asigna ''
-  const [precio_publico, setprecio_publico] = useState(producto.precio_publico.toString() || ''); // Si producto.precio_publico está vacío, asigna ''
-  const [Talla, setTalla] = useState(producto.Talla || ''); // Si producto.Talla está vacío, asigna ''
-  const [categoria, setCategoria] = useState(producto.categoria || ''); // Si producto.categoria está vacío, asigna ''
+  const [nombre, setNombre] = useState(producto.nombre || '');
+  const [descripcion, setDescripcion] = useState(producto.descripcion || '');
+  const [stock, setStock] = useState(producto.stock.toString() || '');
+  const [precio, setPrecio] = useState(producto.precio.toString() || '');
+  const [precioPublico, setPrecioPublico] = useState(producto.precio_publico.toString() || '');
+  const [talla, setTalla] = useState(producto.Talla || '');
+  const [categoria, setCategoria] = useState(producto.categoria.toString() || '');
 
-
-  const EnviarDatos = async (productoId) => {
+  const enviarDatos = async (productoId) => {
     console.log("id: " + productoId);
-    axios.post('https://snek22.000webhostapp.com/editarproducto.php', {
-      id_producto: productoId,
-      nombre: nombre,
-      stock: stock,
-      precio: precio,
-      precio_publico: precio_publico,
-      Talla: Talla, 
-      descripcion: descripcion,
-      categoria: categoria
-    })
-    .then(response => {
+    console.log("nombre: " + nombre);
+    console.log("stock: " + stock);
+    console.log("precio: " + precio);
+    console.log("precio_publico: " + precioPublico);
+    console.log("talla: " + talla);
+    console.log("descripcion: " + descripcion);
+    console.log("categoria: " + categoria);
+
+    try {
+      const response = await axios.post('https://snek22.000webhostapp.com/editarproducto.php', {
+        id_producto: productoId,
+        nombre: nombre,
+        stock: stock,
+        precio: precio,
+        precio_publico: precioPublico,
+        talla: talla,
+        descripcion: descripcion,
+        categoria: categoria
+      });
       Alert.alert('Éxito producto editado correctamente');
       navigation.reset({
         index: 0,
         routes: [{ name: 'Inventario' }],
-      })
-    })
-    .catch(error => {
+      });
+    } catch (error) {
       Alert.alert('Error', error.message);
       console.log(error.message);
-    });
+    }
   };
 
 
@@ -85,14 +91,14 @@ function Edit({ route }) {
         placeholder= {producto.precio_publico}
         placeholderTextColor={'#000000'}
         style={Input}
-        value={precio_publico}
-        onChangeText={setprecio_publico}></TextInput>
+        value={precioPublico}
+        onChangeText={setPrecioPublico}></TextInput>
         <Text style={[Subtitle2, {marginTop:20, marginLeft:10}]}>Talla</Text>
         <TextInput 
-        placeholder= {producto.Talla !== null ? producto.Talla : 'Indefinido'}
+        placeholder= {producto.Talla !== null ? producto.talla : 'Indefinido'}
         placeholderTextColor={'#000000'}
         style={Input}
-        value={Talla}
+        value={talla}
         onChangeText={setTalla}></TextInput>
         <Text style={[Subtitle2, {marginTop:20, marginLeft:10}]}>Categoria</Text>
         <TextInput 
@@ -119,7 +125,7 @@ function Edit({ route }) {
             </TouchableOpacity>
             <TouchableOpacity style={[ButtonsNormal2, {marginTop:-35, marginLeft:225}]}
              onPress={() => {
-              EnviarDatos(producto.id_producto);
+              enviarDatos(producto.id_producto);
              }}>
               <Text style={Buttons}>TERMINAR</Text>
             </TouchableOpacity>
