@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, SafeAreaView, ImageBackground, TouchableOpacity, FlatList } from 'react-native';
 import { ButtonsLogin, Subtitle2 } from './Styles';
-import ListProductHS from './ListProductHS';
+import ListProductTicket from './ListProductTicket';
+import productsData from './ListProduct';
 import { useRoute, useNavigation } from '@react-navigation/native';
 import axios from 'axios';
+import ListProductHS from './ListProductHS';
+import ListFinal from './ListFinal';
 
 function Ticket() {
   const route = useRoute();
@@ -57,10 +60,10 @@ function Ticket() {
         </View>
 
         <View style={{ height: '50%', marginTop: '5%', marginLeft: '2%' }}>
-          <FlatList
-            data={productos}
-            keyExtractor={(item) => item.id} // Asegúrate de que cada producto tenga una propiedad 'id' única
-            renderItem={({ item, index }) => <ListProductHS item={item} />}
+        <FlatList
+            data={productsData}
+            keyExtractor={(item) => item.Nombre}
+            renderItem={({ item, index }) => <ListFinal item={item} />}
             ItemSeparatorComponent={() => <View style={{ marginTop: 10 }}></View>}
           />
         </View>

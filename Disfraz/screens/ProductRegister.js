@@ -69,20 +69,22 @@ const ProductRegister = () => {
   }
 
   const subirImagen = () => {
-    ImagePicker.launchImageLibrary({
+    const options = {
       title: 'Selecciona una imagen',
-      cancelButtonTitle: 'Cancelar',
-      takePhotoButtonTitle: 'Tomar foto',
-      chooseFromLibraryButtonTitle: 'Elegir de la galería',
-      quality: 0.5
-    }, response => {
+      mediaType: 'photo',
+      quality: 0.5,
+      maxWidth: 800,
+      maxHeight: 800,
+    };
+
+    launchImageLibrary(options, response => {
       if (response.didCancel) {
         console.log('El usuario canceló la selección de imagen');
-      } else if (response.error) {
-        console.log('Error al seleccionar imagen: ', response.error);
-      } else {
+      } else if (response.errorCode) {
+        console.log('Error al seleccionar imagen: ', response.errorMessage);
+      } else if (response.assets && response.assets.length > 0) {
         // La imagen seleccionada se muestra en la aplicación
-        setImageSource({ uri: response.uri });
+        setImageSource(response.assets[0]);
       }
     });
   };
@@ -102,11 +104,27 @@ const ProductRegister = () => {
         source={require('./Images/background.png')}
         style={{width: '100%', height: '100%'}}
       >
-        <View style={{marginLeft: '25%', marginTop: '3%'}}>
-          <Icons name="eye" color={'#B41C65'} size={200} />
-        </View>
+        <TouchableOpacity onPress={subirImagen}>
+  <View style={{ marginLeft: '25%', marginTop: '3%' }}>
+    {imageSource ? (
+      <Image source={{ uri: imageSource.uri }} style={{ width: 200, height: 200 }} />
+    ) : (
+      <Icons name="eye" color={'#B41C65'} size={200} />
+    )}
+  </View>
+  {/* {!imageSource && (
+    <View style={{ alignItems: 'center', justifyContent: 'center', marginTop: 20 }}>
+      <View style={{ backgroundColor: '#B41C65', padding: 10, borderRadius: 5 }}>
+        <Text style={{ color: '#fff', fontWeight: 'bold' }}>Seleccionar imagen</Text>
+      </View>
+    </View>
+  )} */}
+
+</TouchableOpacity>
+
+        
         <ScrollView style={{width: '100%', height: '100%'}}>
-          <View>
+          <View style={{marginLeft:'4%'}}>
             <Text style={[Subtitle2, {marginTop:20, marginLeft:10}]}>NOMBRE</Text>
             <TextInput
               placeholder='NOMBRE'
@@ -167,23 +185,34 @@ const ProductRegister = () => {
               onChangeText={setDescripcion}
             />
             <Text style={[Subtitle2, {marginTop:20, marginLeft:10}]}>PROVEEDOR</Text>
-            <Picker
+            <View style={{width:300,
+                height: '8%',
+                marginTop: 12,
+                backgroundColor: '#FFFFFF',
+                color: 'black',
+                borderRadius: 40,}}>
+              <Picker
                 selectedValue={selectedProveedor}
                 onValueChange={(itemValue, itemIndex) => setSelectedProveedor(itemValue)}
                 style={{
                   backgroundColor: 'white',
-                  width: '80%',
-                  marginLeft: '2%'
+                  width: '90%',
+                  height:'6%',
+                  marginLeft: '5%',
+                  marginTop: '1.3%'
                 }}
             >
-                {proveedores.map(proveedor => (
-                    <Picker.Item
-                        key={proveedor.id_proveedor}
-                        label={`${proveedor.nombre} (${proveedor.correo}) (${proveedor.id_proveedor})`}
-                        value={proveedor.id_proveedor}
-                    />
-                ))}
+                <Picker.Item label="Proveedor" value="" color="#000" />
+        {proveedores.map(proveedor => (
+          <Picker.Item
+            key={proveedor.id_proveedor}
+            label={`${proveedor.nombre} (${proveedor.correo}) (${proveedor.id_proveedor})`}
+            value={proveedor.id_proveedor}
+            color="#000" // You can customize the color here
+          />
+        ))}
             </Picker>
+            </View>
           </View>
           {/* <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
             {imageSource && <Image source={imageSource} style={{ width: 200, height: 200 }} />}

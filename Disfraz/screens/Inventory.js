@@ -1,10 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, FlatList, TouchableOpacity, ImageBackground } from 'react-native';
+import {Subtitle2, Input, ButtonsNormal, ButtonsNormal2, Buttons} from './Styles';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import ListInventory from './ListInventory';
 import Icons from 'react-native-vector-icons/Ionicons';
 import { useNavigation } from '@react-navigation/native';
 import axios from 'axios';
+import RNHTMLtoPDF from 'react-native-html-to-pdf';
+import * as RNFS from 'react-native-fs';
+import { Alert, Button } from 'react-native';
+
 import { Background, Subtitle } from './Styles'; // Asegúrate de importar los estilos necesarios
 
 const Inventory = () => {
@@ -35,14 +40,60 @@ const Inventory = () => {
     }
   };
 
+  const generarPDF = async () => {
+    try {
+      const htmlContent = `
+        <html>
+          <body>
+            <h1>Inventario</h1>
+            <table border="1">
+              <thead>
+                <tr>
+                  <th>Nombre</th>
+                  <th>Cantidad</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${productos.map((producto) => `
+                  <tr>
+                    <td>${producto.nombre}</td>
+                    <td>${producto.cantidad}</td>
+                  </tr>
+                `).join('')}
+              </tbody>
+            </table>
+          </body>
+        </html>
+      `;
+  
+      const options = {
+        html: htmlContent,
+        fileName: 'inventory',
+        directory: Platform.OS === 'ios' ? RNFS.DocumentDirectoryPath : RNFS.ExternalDirectoryPath,
+      };
+  
+      const file = await RNHTMLtoPDF.convert(options);
+      Alert.alert('PDF generado', `El inventario se ha descargado en la carpeta de documentos.`);
+    } catch (error) {
+      console.error('Error al generar el PDF:', error);
+      Alert.alert('Error', 'No se pudo generar el PDF del inventario.');
+    }
+  };
+  
+
   return (
     <SafeAreaView>
       <ImageBackground source={require('./Images/background.png')} style={Background}>
+        
         <TouchableOpacity style={{ marginLeft: '80%', marginTop: '3%' }} onPress={() => navigation.navigate("Agregar Producto")}>
           <Icons name="add-circle" color={'#F72798'} size={50} />
         </TouchableOpacity>
 
-        <TouchableOpacity style={{ marginLeft: '5%', marginTop: '-13%' }} onPress={obtenerProductos}>
+        <TouchableOpacity style={[ButtonsNormal, { marginLeft: '36%', marginTop:'-11%' }]} onPress={generarPDF}>
+  <Text style={[Buttons, {marginLeft:'33%'}]}> PDF</Text>
+</TouchableOpacity>
+
+        <TouchableOpacity style={{ marginLeft: '5%', marginTop: '-10%', width:'20%' }} onPress={obtenerProductos}>
           <Icons name="refresh-circle" color={'#F72798'} size={50} />
         </TouchableOpacity>
 

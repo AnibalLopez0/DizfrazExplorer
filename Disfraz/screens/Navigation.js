@@ -4,7 +4,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Icons from 'react-native-vector-icons/Ionicons';
 
-import HomeScreen from './HomeScreen';
+import HomeScreen from './StackHS';
 import Graph from './Graph';
 import Inventory from './StackProduct';
 import Register from './Register';
@@ -25,6 +25,9 @@ export default function App() {
           tabBarActiveBackgroundColor: "#000",
           tabBarInactiveTintColor: "#B41C65",
           tabBarInactiveBackgroundColor: "#FB8DC8",
+        }}
+        options={{
+          headerShown:false
         }}
       >
         <Tab.Screen name="Home" component={HomeScreen} 

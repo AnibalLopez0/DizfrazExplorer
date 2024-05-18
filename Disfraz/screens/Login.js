@@ -28,7 +28,7 @@ const Login = ({navigation}) => {
             <Text style={SubtitleInput}>USUARIO</Text>
             <TextInput style={Input} ></TextInput>
           </View>
-          <View>
+          <View style={{marginTop:'3%'}}>
             <Text style={SubtitleInput}>CONTRASEÑA</Text>
             <TextInput style={Input} secureTextEntry={!showPassword}></TextInput>
             <TouchableOpacity style={{marginTop:-40, marginLeft:255}} onPress={togglePasswordVisibility}>

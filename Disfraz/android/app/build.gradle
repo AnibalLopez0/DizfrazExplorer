@@ -109,6 +109,8 @@ dependencies {
     implementation("com.facebook.react:react-android")
     implementation("com.facebook.react:flipper-integration")
     implementation project(':react-native-image-picker')
+    implementation project(':react-native-svg')
+
 
 
     if (hermesEnabled.toBoolean()) {
