@@ -7,6 +7,11 @@ https://reactnavigation.org/
 React vector icons
 https://github.com/oblador/react-native-vector-icons?tab=readme-ov-file
 
+React Native chart kit
+https://github.com/indiespirit/react-native-chart-kit
+npm install react-native-chart-kit
+
+
 ESTE CODIGO PODRIA SERVIR
 
 
