@@ -11,6 +11,13 @@ React Native chart kit
 https://github.com/indiespirit/react-native-chart-kit
 npm install react-native-chart-kit
 
+React Native HTML to pdf
+npm install react-native-html-to-pdf
+
+npm install react-native-fs
+
+
+
 
 ESTE CODIGO PODRIA SERVIR
 
