@@ -1,7 +1,8 @@
 import React, { Component, useState, useEffect } from 'react';
 import { View, Text, TextInput, SafeAreaView, ImageBackground, Image, TouchableOpacity,
 ScrollView, Button,
-ActivityIndicator} from 'react-native';
+ActivityIndicator,
+Alert} from 'react-native';
 import {Subtitle2, Input, ButtonsNormal, ButtonsNormal2, Buttons} from './Styles';
 import Icons from 'react-native-vector-icons/Ionicons';
 import axios from 'axios';
@@ -23,36 +24,43 @@ const ProductRegister = () => {
   const [proveedores, setProveedores] = useState([]);
   const [selectedProveedor, setSelectedProveedor] = useState('');
 
-
   const enviarDatos = async () => {
-    
     try {
       const url = 'https://snek22.000webhostapp.com/insertarproducto.php';
 
-      const producto = 
-        {
-          categoria: categoria,
-          nombre: nombre,
-          descripcion: descripcion,
-          precio: parseFloat(precio),
-          stock: parseInt(stock) ,
-          Talla: Talla,
-          precio_publico: parseFloat(precio_publico),
-          id_proveedor: selectedProveedor
-        };
-  
-      const response = await axios.post(url, { productos: [producto] });
+      const formData = new FormData();
+      formData.append('categoria', categoria);
+      formData.append('nombre', nombre);
+      formData.append('descripcion', descripcion);
+      formData.append('precio', parseFloat(precio));
+      formData.append('precio_publico', parseFloat(precio_publico));
+      formData.append('stock', parseInt(stock));
+      formData.append('Talla', Talla);
+      formData.append('id_proveedor', selectedProveedor);
+
+      if (imageSource) {
+        formData.append('imagen', {
+          uri: imageSource.uri,
+          type: imageSource.type,
+          name: imageSource.fileName,
+        });
+      }
+
+      const response = await axios.post(url, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
 
       console.log('Datos enviados correctamente:', response.data);
-      alert(nombre +' agregado correctamente');
+      Alert.alert('Éxito', `${Talla} agregado correctamente`);
       navigation.reset({
         index: 0,
         routes: [{ name: 'Inventario' }],
-      })
+      });
     } catch (error) {
-      console.error('Error al enviar los datos:', error, categoria, nombre,
-      descripcion, precio, stock, Talla, precio_publico);
-      alert('Error al enviar producto');
+      console.error('Error al enviar los datos:', error);
+      Alert.alert('Error', 'Error al enviar producto');
     }
   };
 
