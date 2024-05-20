@@ -87,7 +87,7 @@ const Register = ({ navigation }) => {
                 keyboardType="email-address"
               />
             </View>
-            <View style={{ marginTop: 15, marginBottom: 15 }}>
+            <View style={{ marginTop: 15}}>
               <Text style={SubtitleInput}>
                 CARGO
               </Text>
@@ -97,7 +97,7 @@ const Register = ({ navigation }) => {
                 onChangeText={setCargo}
               />
             </View>
-            <View style={{ marginTop: 15 }}>
+            <View style={{ marginTop: 15}}>
               <Text style={SubtitleInput}>
                 NOMBRE DE USUARIO
               </Text>
@@ -107,7 +107,7 @@ const Register = ({ navigation }) => {
                 onChangeText={setUsername}
               />
             </View>
-            <View>
+            <View style={{ marginTop: 15, marginBottom: 15 }}>
               <Text style={SubtitleInput}>CONTRASEÑA</Text>
               <TextInput
                 style={Input}
@@ -123,7 +123,7 @@ const Register = ({ navigation }) => {
               </TouchableOpacity>
             </View>
           </View>
-          <View style={{ flex: 1, alignItems: 'center', marginTop: 250 }}>
+          <View style={{ flex: 1, alignItems: 'center', marginTop: 350 }}>
             <TouchableOpacity
               style={ButtonsLogin}
               onPress={() => {
