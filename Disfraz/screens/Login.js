@@ -1,5 +1,5 @@
 import React, { Component, useState } from 'react';
-import { View, Text, TextInput, SafeAreaView, ImageBackground, TouchableOpacity, } from 'react-native';
+import { View, Text, TextInput, SafeAreaView, ImageBackground, TouchableOpacity, Alert, } from 'react-native';
 import Icons from 'react-native-vector-icons/Ionicons';
 import {Background, ButtonsLogin, ButtonsLoginText, Input, SubtitleInput} from './Styles';
 //style={{width: 800,height: 800,}} se me va olvidar
@@ -9,12 +9,27 @@ import {Background, ButtonsLogin, ButtonsLoginText, Input, SubtitleInput} from '
 const Login = ({navigation}) => {
   const [showPassword, setShowPassword] = useState(false);
 
+  const [correo, setCorreo] = useState('');
+  const[password, setPassword] = useState('');
+
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
 
+  const enviarDatos = () =>{
+    try{
+      const url = "https://snek22.000webhostapp.com/login.php";
+    }catch(error){
+
+    }
+  };
+
   const validaCampos = () => {
-    
+    if(!correo || !password){
+      Alert.alert("Por favor completa todos los campos");
+      return false;
+    }
+    return true;
   }
   
   return (

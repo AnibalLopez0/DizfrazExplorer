@@ -9,16 +9,18 @@ const Sell = () => {
   const [currentDateTime, setCurrentDateTime] = useState('');
   const [productos, setProductos] = useState([]);
   const [dineroRecibido, setDineroRecibido] = useState('');
+  const [contadorProductos, setContadorProductos] = useState(0);
   const navigation = useNavigation();
 
   useEffect(() => {
-    setProductos(obtenerProductos());
+    const productosObtenidos = obtenerProductos();
+    setProductos(productosObtenidos);
+    setContadorProductos(productosObtenidos.length);
 
     const interval = setInterval(() => {
       const now = new Date();
       const date = `${now.getDate()}/${now.getMonth() + 1}/${now.getFullYear()}`;
-      const time = `${now.getHours()}:${now.getMinutes()}`;
-      setCurrentDateTime(`${date} ${time}`);
+      setCurrentDateTime(`${date}`);
     }, 1000);
 
     return () => clearInterval(interval);
@@ -26,10 +28,40 @@ const Sell = () => {
 
   const handleEliminarProducto = (id) => {
     eliminarProductoPorId(id);
-    setProductos(obtenerProductos()); // Actualiza la lista de productos después de eliminar uno
+    const productosActualizados = obtenerProductos();
+    setProductos(productosActualizados); // Actualiza la lista de productos después de eliminar uno
+    setContadorProductos(productosActualizados.length);
   };
 
   const totalPrecio = sumarPreciosProductos(productos);
+
+  const handleVender = () => {
+    const datosVenta = {
+      productos: productos,
+      totalPrecio: totalPrecio,
+      dineroRecibido: dineroRecibido,
+      fecha: currentDateTime,
+    };
+    
+    console.log(datosVenta); // Imprime los datos en la consola
+
+    // Aquí puedes hacer la petición HTTP a tu script PHP
+    // fetch('', {
+    //   method: 'POST',
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //   },
+    //   body: JSON.stringify(datosVenta),
+    // })
+    // .then(response => response.json())
+    // .then(data => {
+    //   console.log('Respuesta del servidor:', data);
+    //   // Aquí puedes manejar la respuesta del servidor
+    // })
+    // .catch(error => {
+    //   console.error('Error:', error);
+    // });
+  };
 
   return (
     <SafeAreaView>
@@ -61,6 +93,10 @@ const Sell = () => {
             style={Input}
           />
         </View>
+        <View style={{ marginTop: '3%', marginLeft: '10%' }}>
+          <Text style={[Subtitle2, { marginTop: 20, marginLeft: 10 }]}>PRODUCTOS SELECCIONADOS</Text>
+          <Text style={[Subtitle2, { marginTop: -23, marginLeft: '72%' }]}>{contadorProductos}</Text>
+        </View>
         <View style={{ marginTop: '7%', marginLeft: '10%' }}>
           <TouchableOpacity
             style={ButtonsNormal}
@@ -72,7 +108,8 @@ const Sell = () => {
           </TouchableOpacity>
           <TouchableOpacity
             style={[ButtonsNormal2, { marginTop: '-10%', marginLeft: '55%' }]}
-            onPress={() => navigation.navigate("Ticket", { dineroRecibido, totalPrecio, currentDateTime })}>
+            onPress={handleVender}
+            >
             <Text style={[Buttons, { marginLeft: '20%' }]}>VENDER</Text>
           </TouchableOpacity>
         </View>
