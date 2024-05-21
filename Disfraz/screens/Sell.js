@@ -13,7 +13,7 @@ const Sell = () => {
   const navigation = useNavigation();
 
   useEffect(() => {
-    setProductos(obtenerProductos());
+    setProductos(obtenerProductos().map(producto => ({ ...producto, cantidad: producto.cantidad || 1 })));
 
     const interval = setInterval(() => {
       const now = new Date();
@@ -27,7 +27,7 @@ const Sell = () => {
 
   const handleEliminarProducto = (id) => {
     eliminarProductoPorId(id);
-    setProductos(obtenerProductos()); // Actualiza la lista de productos después de eliminar uno
+    setProductos(obtenerProductos().map(producto => ({ ...producto, cantidad: producto.cantidad || 1 })));
   };
 
   const totalPrecio = sumarPreciosProductos(productos);
@@ -35,12 +35,9 @@ const Sell = () => {
   const handleVender = async () => {
     try {
       const venta = {
-        id_producto:productos.id,
+        productos: productos.map(p => ({ id_producto: p.id, cantidad: p.cantidad, precio: p.precio })),
         nombre_empleado: 'holis',
-        cantidad: 1,
-        productos,
-        dineroRecibido: parseFloat(dineroRecibido),
-        totalPrecio,
+        total: totalPrecio,
         fecha: currentDateTime,
       };
 
@@ -58,50 +55,55 @@ const Sell = () => {
   };
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{ flex: 1 }}>
       <ImageBackground
         source={require('./Images/background.png')}
-        style={{ width: '100%', height: '100%' }}>
-        <View style={{ marginTop: '10%', marginLeft: '5%' }}>
-          <Text style={Subtitle2}> NUMERO DE COMPRA</Text>
-          <Text style={[Subtitle2, { marginTop: -20, marginLeft: '60%' }]}> {currentDateTime}</Text>
-        </View>
-
-        <View style={{ height: '50%', marginTop: '5%', marginLeft: '2%' }}>
-          <FlatList
-            data={productos}
-            keyExtractor={(item) => item.id}
-            renderItem={({ item }) => <ListProductTicket item={item} onEliminarProducto={handleEliminarProducto} />}
-            ItemSeparatorComponent={() => <View style={{ marginTop: 10 }}></View>}
-          />
-        </View>
-        <View style={{ marginTop: '3%', marginLeft: '10%' }}>
-          <Text style={[Subtitle2, { marginTop: 20, marginLeft: 10 }]}>TOTAL</Text>
-          <Text style={[Subtitle2, { marginTop: -23, marginLeft: '72%' }]}>${totalPrecio}</Text>
-          <TextInput
-            placeholder='DINERO RECIBIDO'
-            placeholderTextColor={'#000000'}
-            keyboardType="numeric"
-            value={dineroRecibido}
-            onChangeText={setDineroRecibido}
-            style={Input}
-          />
-        </View>
-        <View style={{ marginTop: '7%', marginLeft: '10%' }}>
-          <TouchableOpacity
-            style={ButtonsNormal}
-            onPress={() => navigation.reset({
-              index: 0,
-              routes: [{ name: 'Inventario' }],
-            })}>
-            <Text style={[Buttons, { marginLeft: '7%' }]}>CANCELAR</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={[ButtonsNormal2, { marginTop: '-10%', marginLeft: '55%' }]}
-            onPress={handleVender}>
-            <Text style={[Buttons, { marginLeft: '20%' }]}>VENDER</Text>
-          </TouchableOpacity>
-        </View>
+        style={{ flex: 1 }}>
+        <FlatList
+          ListHeaderComponent={() => (
+            <View>
+              <View style={{ marginTop: '10%', marginLeft: '5%' }}>
+                <Text style={Subtitle2}> NUMERO DE COMPRA</Text>
+                <Text style={[Subtitle2, { marginTop: -20, marginLeft: '60%' }]}> {currentDateTime}</Text>
+              </View>
+              <View style={{ marginTop: '3%', marginLeft: '10%' }}>
+                <Text style={[Subtitle2, { marginTop: 20, marginLeft: 10 }]}>TOTAL</Text>
+                <Text style={[Subtitle2, { marginTop: -23, marginLeft: '72%' }]}>${totalPrecio}</Text>
+                <TextInput
+                  placeholder='DINERO RECIBIDO'
+                  placeholderTextColor={'#000000'}
+                  keyboardType="numeric"
+                  value={dineroRecibido}
+                  onChangeText={setDineroRecibido}
+                  style={Input}
+                />
+              </View>
+            </View>
+          )}
+          data={productos}
+          keyExtractor={(item) => item.id.toString()}
+          renderItem={({ item }) => (
+            <ListProductTicket item={item} onEliminarProducto={handleEliminarProducto} />
+          )}
+          ItemSeparatorComponent={() => <View style={{ marginTop: 10 }}></View>}
+          ListFooterComponent={() => (
+            <View style={{ marginTop: '7%', marginLeft: '10%' }}>
+              <TouchableOpacity
+                style={ButtonsNormal}
+                onPress={() => navigation.reset({
+                  index: 0,
+                  routes: [{ name: 'Inventario' }],
+                })}>
+                <Text style={[Buttons, { marginLeft: '7%' }]}>CANCELAR</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={[ButtonsNormal2, { marginTop: '-10%', marginLeft: '55%' }]}
+                onPress={handleVender}>
+                <Text style={[Buttons, { marginLeft: '20%' }]}>VENDER</Text>
+              </TouchableOpacity>
+            </View>
+          )}
+        />
       </ImageBackground>
     </SafeAreaView>
   );

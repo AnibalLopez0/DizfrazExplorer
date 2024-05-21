@@ -2,8 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, SafeAreaView, ImageBackground, TouchableOpacity, FlatList } from 'react-native';
 import { ButtonsLogin, Subtitle2 } from './Styles';
 import ListProductTicket from './ListProductTicket';
-import productsData from './ListProduct';
-import {eliminarTodosLosProductos, obtenerProductos } from './ListProduct';
+import { obtenerProductos, eliminarTodosLosProductos } from './ListProduct';
 import { useRoute, useNavigation } from '@react-navigation/native';
 import axios from 'axios';
 
@@ -34,10 +33,6 @@ function Ticket() {
 
     // Actualizar el estado del cambio
     setCambio(cambioAbsoluto);
-
-    
-
-    setProductos(obtenerProductos());
   }, []);
 
   const handleVolverAlInventario = () => {
@@ -49,37 +44,42 @@ function Ticket() {
   };
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{ flex: 1 }}>
       <ImageBackground
         source={require('./Images/background.png')}
-        style={{ width: '100%', height: '100%' }}>
-        <View style={{ marginTop: '10%', marginLeft: '5%' }}>
-          <Text style={Subtitle2}> NUMERO DE COMPRA</Text>
-          <Text style={[Subtitle2, { marginTop: -20, marginLeft: '60%' }]}> {currentDateTime}</Text>
-        </View>
-
-        <View style={{ height: '50%', marginTop: '5%', marginLeft: '2%' }}>
+        style={{ flex: 1 }}>
         <FlatList
-            data={productos}
-            keyExtractor={(item) => item.Nombre}
-            renderItem={({ item, index }) => <ListFinal item={item} />}
-            ItemSeparatorComponent={() => <View style={{ marginTop: 10 }}></View>}
-          />
-        </View>
-        <View style={{ marginTop: '3%', marginLeft: '10%' }}>
-          <Text style={[Subtitle2, { marginTop: 20, marginLeft: 10 }]}>TOTAL</Text>
-          <Text style={[Subtitle2, { marginTop: -23, marginLeft: '75%' }]}>{totalPrecio}</Text>
-          <Text style={[Subtitle2, { marginTop: 20, marginLeft: 10 }]}>RECIBIDO</Text>
-          <Text style={[Subtitle2, { marginTop: -23, marginLeft: '75%' }]}>{dineroRecibido}</Text>
-          <Text style={[Subtitle2, { marginTop: 20, marginLeft: 10 }]}>CAMBIO</Text>
-          <Text style={[Subtitle2, { marginTop: -23, marginLeft: '75%' }]}>{cambio !== null ? cambio : 'Calculando...'}</Text>
-        </View>
-        <View style={{ marginTop: '7%', marginLeft: '10%' }}>
-          <TouchableOpacity style={ButtonsLogin}
-            onPress={handleVolverAlInventario}>
-            <Text style={{ fontSize: 16, fontWeight: 'bold', color: '#FFFFFF', marginLeft: '20%', marginTop: 10, }}>VOLVER AL INVENTARIO</Text>
-          </TouchableOpacity>
-        </View>
+          ListHeaderComponent={() => (
+            <View>
+              <View style={{ marginTop: '10%', marginLeft: '5%' }}>
+                <Text style={Subtitle2}> NUMERO DE COMPRA</Text>
+                <Text style={[Subtitle2, { marginTop: -20, marginLeft: '60%' }]}> {currentDateTime}</Text>
+              </View>
+              <View style={{ marginTop: '3%', marginLeft: '10%' }}>
+                <Text style={[Subtitle2, { marginTop: 20, marginLeft: 10 }]}>TOTAL</Text>
+                <Text style={[Subtitle2, { marginTop: -23, marginLeft: '75%' }]}>{totalPrecio}</Text>
+                <Text style={[Subtitle2, { marginTop: 20, marginLeft: 10 }]}>RECIBIDO</Text>
+                <Text style={[Subtitle2, { marginTop: -23, marginLeft: '75%' }]}>{dineroRecibido}</Text>
+                <Text style={[Subtitle2, { marginTop: 20, marginLeft: 10 }]}>CAMBIO</Text>
+                <Text style={[Subtitle2, { marginTop: -23, marginLeft: '75%' }]}>{cambio !== null ? cambio : 'Calculando...'}</Text>
+              </View>
+            </View>
+          )}
+          data={productos}
+          keyExtractor={(item) => item.id.toString()}
+          renderItem={({ item }) => (
+            <ListFinal item={item} />
+          )}
+          ItemSeparatorComponent={() => <View style={{ marginTop: 10 }}></View>}
+          ListFooterComponent={() => (
+            <View style={{ marginTop: '7%', marginLeft: '10%' }}>
+              <TouchableOpacity style={ButtonsLogin}
+                onPress={handleVolverAlInventario}>
+                <Text style={{ fontSize: 16, fontWeight: 'bold', color: '#FFFFFF', marginLeft: '20%', marginTop: 10 }}>VOLVER AL INVENTARIO</Text>
+              </TouchableOpacity>
+            </View>
+          )}
+        />
       </ImageBackground>
     </SafeAreaView>
   );
