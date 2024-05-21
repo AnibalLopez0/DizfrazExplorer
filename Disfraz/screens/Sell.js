@@ -59,14 +59,23 @@ const Sell = () => {
       <ImageBackground
         source={require('./Images/background.png')}
         style={{ flex: 1 }}>
-        <FlatList
-          ListHeaderComponent={() => (
-            <View>
-              <View style={{ marginTop: '10%', marginLeft: '5%' }}>
-                <Text style={Subtitle2}> NUMERO DE COMPRA</Text>
+          <View style={{ marginTop: '10%', marginLeft: '5%' }}>
+                <Text style={Subtitle2}>                  </Text>
                 <Text style={[Subtitle2, { marginTop: -20, marginLeft: '60%' }]}> {currentDateTime}</Text>
               </View>
-              <View style={{ marginTop: '3%', marginLeft: '10%' }}>
+       
+        <FlatList
+          data={productos}
+          keyExtractor={(item) => item.id.toString()}
+          renderItem={({ item }) => (
+            <ListProductTicket item={item} onEliminarProducto={handleEliminarProducto} />
+          )}
+          ItemSeparatorComponent={() => <View style={{ marginTop: 10 }}></View>}
+          
+        />
+        <View>
+              
+              <View style={{ marginTop: '-45%', marginLeft: '10%' }}>
                 <Text style={[Subtitle2, { marginTop: 20, marginLeft: 10 }]}>TOTAL</Text>
                 <Text style={[Subtitle2, { marginTop: -23, marginLeft: '72%' }]}>${totalPrecio}</Text>
                 <TextInput
@@ -78,16 +87,7 @@ const Sell = () => {
                   style={Input}
                 />
               </View>
-            </View>
-          )}
-          data={productos}
-          keyExtractor={(item) => item.id.toString()}
-          renderItem={({ item }) => (
-            <ListProductTicket item={item} onEliminarProducto={handleEliminarProducto} />
-          )}
-          ItemSeparatorComponent={() => <View style={{ marginTop: 10 }}></View>}
-          ListFooterComponent={() => (
-            <View style={{ marginTop: '7%', marginLeft: '10%' }}>
+              <View style={{ marginTop: '7%', marginLeft: '10%' }}>
               <TouchableOpacity
                 style={ButtonsNormal}
                 onPress={() => navigation.reset({
@@ -102,8 +102,8 @@ const Sell = () => {
                 <Text style={[Buttons, { marginLeft: '20%' }]}>VENDER</Text>
               </TouchableOpacity>
             </View>
-          )}
-        />
+            </View>
+           
       </ImageBackground>
     </SafeAreaView>
   );

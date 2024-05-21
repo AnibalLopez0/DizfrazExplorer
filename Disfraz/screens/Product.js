@@ -17,6 +17,10 @@ function Product({ route }) {
         id: producto.id_producto,
       });
       Alert.alert('Éxito', response.data.message);
+      navigation.reset({
+        index: 0,
+        routes: [{ name: 'Inventario' }],
+      });
     } catch (error) {
       Alert.alert('Error', error.message);
     }

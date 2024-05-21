@@ -48,14 +48,21 @@ function Ticket() {
       <ImageBackground
         source={require('./Images/background.png')}
         style={{ flex: 1 }}>
-        <FlatList
-          ListHeaderComponent={() => (
-            <View>
-              <View style={{ marginTop: '10%', marginLeft: '5%' }}>
-                <Text style={Subtitle2}> NUMERO DE COMPRA</Text>
+          <View style={{ marginTop: '5%', marginLeft: '5%',  marginBottom:'5%' }}>
+                <Text style={Subtitle2}>                   </Text>
                 <Text style={[Subtitle2, { marginTop: -20, marginLeft: '60%' }]}> {currentDateTime}</Text>
               </View>
-              <View style={{ marginTop: '3%', marginLeft: '10%' }}>
+        <FlatList
+          
+          data={productos}
+          keyExtractor={(item) => item.id.toString()}
+          renderItem={({ item }) => (
+            <ListFinal item={item} />
+          )}
+          ItemSeparatorComponent={() => <View style={{ marginTop: 10 }}></View>}
+          
+        />
+        <View style={{ marginTop: '-30%', marginLeft: '10%' }}>
                 <Text style={[Subtitle2, { marginTop: 20, marginLeft: 10 }]}>TOTAL</Text>
                 <Text style={[Subtitle2, { marginTop: -23, marginLeft: '75%' }]}>{totalPrecio}</Text>
                 <Text style={[Subtitle2, { marginTop: 20, marginLeft: 10 }]}>RECIBIDO</Text>
@@ -63,23 +70,12 @@ function Ticket() {
                 <Text style={[Subtitle2, { marginTop: 20, marginLeft: 10 }]}>CAMBIO</Text>
                 <Text style={[Subtitle2, { marginTop: -23, marginLeft: '75%' }]}>{cambio !== null ? cambio : 'Calculando...'}</Text>
               </View>
-            </View>
-          )}
-          data={productos}
-          keyExtractor={(item) => item.id.toString()}
-          renderItem={({ item }) => (
-            <ListFinal item={item} />
-          )}
-          ItemSeparatorComponent={() => <View style={{ marginTop: 10 }}></View>}
-          ListFooterComponent={() => (
-            <View style={{ marginTop: '7%', marginLeft: '10%' }}>
+              <View style={{ marginTop: '5%', marginLeft: '10%' }}>
               <TouchableOpacity style={ButtonsLogin}
                 onPress={handleVolverAlInventario}>
                 <Text style={{ fontSize: 16, fontWeight: 'bold', color: '#FFFFFF', marginLeft: '20%', marginTop: 10 }}>VOLVER AL INVENTARIO</Text>
               </TouchableOpacity>
             </View>
-          )}
-        />
       </ImageBackground>
     </SafeAreaView>
   );

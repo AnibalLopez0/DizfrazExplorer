@@ -53,7 +53,7 @@ const ProductRegister = () => {
       });
 
       console.log('Datos enviados correctamente:', response.data);
-      Alert.alert('Éxito', `${Talla} agregado correctamente`);
+      Alert.alert('Éxito', `${nombre} agregado correctamente`);
       navigation.reset({
         index: 0,
         routes: [{ name: 'Inventario' }],
