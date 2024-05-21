@@ -16,7 +16,7 @@ const Edit = ({ route }) => {
   const [precio, setPrecio] = useState(producto.precio.toString() || '');
   const [precioPublico, setPrecioPublico] = useState(producto.precio_publico.toString() || '');
   const [talla, setTalla] = useState(producto.Talla || '');
-  const [categoria, setCategoria] = useState(producto.categoria.toString() || '');
+
   const [imagen, setImagen] = useState(producto.imagen || '');
   const [imagenNueva, setImagenNueva] = useState(null);
 
@@ -46,8 +46,8 @@ const Edit = ({ route }) => {
     console.log("precio: " + precio);
     console.log("precio_publico: " + precioPublico);
     console.log("talla: " + talla);
-    console.log("descripcion: " + descripcion);
-    console.log("categoria: " + categoria);
+    
+    
 
     const formData = new FormData();
     formData.append('id_producto', productoId);
@@ -57,7 +57,7 @@ const Edit = ({ route }) => {
     formData.append('precio_publico', precioPublico);
     formData.append('talla', talla);
     formData.append('descripcion', descripcion);
-    formData.append('categoria', categoria);
+    
     if (imagenNueva) {
       const uriParts = imagenNueva.uri.split('.');
       const fileType = uriParts[uriParts.length - 1];
@@ -136,13 +136,7 @@ const Edit = ({ route }) => {
               style={Input}
               value={talla}
               onChangeText={setTalla}></TextInput>
-            <Text style={[Subtitle2, { marginTop: 20, marginLeft: 10 }]}>Categoria</Text>
-            <TextInput
-              placeholder={producto.categoria.toString()}
-              placeholderTextColor={'#000000'}
-              style={Input}
-              value={categoria}
-              onChangeText={setCategoria}></TextInput>
+            
             <Text style={[Subtitle2, { marginTop: 20, marginLeft: 10 }]}>Descripción</Text>
             <TextInput
               placeholder={producto.descripcion}

@@ -92,9 +92,7 @@ function Product({ route }) {
                 <Text style={[Subtitle2, { marginTop: 20, marginLeft: 10 }]}>
                   CANTIDAD: {producto.stock}
                 </Text>
-                <Text style={[Subtitle2, { marginTop: 20, marginLeft: 10 }]}>
-                  CATEGORIA: {producto.categoria}
-                </Text>
+                
                 <Text
                   style={[
                     Subtitle2,
