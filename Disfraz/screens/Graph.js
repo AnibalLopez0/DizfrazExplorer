@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, SafeAreaView, ImageBackground, ActivityIndicator } from 'react-native';
-import { Background, Subtitle2, Title2 } from './Styles';
+import { View, Text, SafeAreaView, ImageBackground, ActivityIndicator, ScrollView, Dimensions } from 'react-native';
+import { Background } from './Styles';
 import { LineChart } from 'react-native-chart-kit';
 import axios from 'axios';
+
+const screenWidth = Dimensions.get('window').width;
 
 function Graph() {
   const [chartData, setChartData] = useState({
@@ -43,48 +45,50 @@ function Graph() {
       });
   }, []);
 
+  useEffect(() => {
+    console.log('Chart Data:', chartData);
+  }, [chartData]);
+
   return (
-    <SafeAreaView>
-      <View>
-        <ImageBackground source={require('./Images/background.png')} style={Background}>
-          {loading ? (
-            <ActivityIndicator size="large" color="#FB8DC8" style={{ marginTop: '50%' }} />
-          ) : error ? (
-            <Text style={{ color: 'red', marginLeft: 10 }}>{error}</Text>
-          ) : (
-            <LineChart
-              data={chartData}
-              width={350}
-              height={500}
-              yAxisSuffix="$"
-              chartConfig={{
-                backgroundColor: 'black',
-                backgroundGradientFrom: '#000',
-                backgroundGradientTo: '#0000',
-                decimalPlaces: 2,
-                color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
-                labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
-                style: {
-                  borderRadius: 16
-                },
-                propsForDots: {
-                  r: "6",
-                  strokeWidth: "5",
-                  stroke: "#FB8DC8"
-                },
-                propsForBackgroundLines: {
-                  stroke: "#B41C65" // Color de las líneas de fondo
-                },
-              }}
-              bezier
-              style={{
-                marginVertical: '30%',
-                marginLeft: '2%'
-              }}
-            />
-          )}
-        </ImageBackground>
-      </View>
+    <SafeAreaView style={{ flex: 1 }}>
+      <ImageBackground source={require('./Images/background.png')} style={Background}>
+        {loading ? (
+          <ActivityIndicator size="large" color="#FB8DC8" style={{ marginTop: '50%' }} />
+        ) : error ? (
+          <Text style={{ color: 'red', marginLeft: 10 }}>{error}</Text>
+        ) : (
+          <ScrollView horizontal>
+            <View style={{ padding: 20, marginTop: '15%' }}>
+              <LineChart
+                data={chartData}
+                width={screenWidth * 2}  // Duplicamos el ancho de la pantalla para hacer el scroll
+                height={500}
+                yAxisSuffix="$"
+                chartConfig={{
+                  backgroundColor: 'black',
+                  backgroundGradientFrom: '#000',
+                  backgroundGradientTo: '#000',
+                  decimalPlaces: 2,
+                  color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+                  labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+                  style: {
+                    borderRadius: 16
+                  },
+                  propsForDots: {
+                    r: "6",
+                    strokeWidth: "5",
+                    stroke: "#FB8DC8"
+                  },
+                  propsForBackgroundLines: {
+                    stroke: "#B41C65" // Color de las líneas de fondo
+                  },
+                }}
+                bezier
+              />
+            </View>
+          </ScrollView>
+        )}
+      </ImageBackground>
     </SafeAreaView>
   );
 }
