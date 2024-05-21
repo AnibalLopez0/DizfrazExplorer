@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TextInput, SafeAreaView, ImageBackground, TouchableOpacity, FlatList } from 'react-native';
+import { View, Text, TextInput, SafeAreaView, ImageBackground, TouchableOpacity, FlatList, Alert } from 'react-native';
 import { Buttons, ButtonsNormal, ButtonsNormal2, Input, Subtitle2 } from './Styles';
 import { useNavigation } from '@react-navigation/native';
 import ListProductTicket from './ListProductTicket';
@@ -33,6 +33,10 @@ const Sell = () => {
   const totalPrecio = sumarPreciosProductos(productos);
 
   const handleVender = async () => {
+    if(!dineroRecibido){
+      Alert.alert("Escribe el dinero recibido");
+      return;
+    }
     try {
       const venta = {
         productos: productos.map(p => ({ id_producto: p.id, cantidad: p.cantidad, precio: p.precio })),
