@@ -3,9 +3,10 @@ import { View, Text, SafeAreaView, ImageBackground, TouchableOpacity, FlatList }
 import { ButtonsLogin, Subtitle2 } from './Styles';
 import ListProductTicket from './ListProductTicket';
 import productsData from './ListProduct';
+import {eliminarTodosLosProductos, obtenerProductos } from './ListProduct';
 import { useRoute, useNavigation } from '@react-navigation/native';
 import axios from 'axios';
-import ListProductHS from './ListProductHS';
+
 import ListFinal from './ListFinal';
 
 function Ticket() {
@@ -16,6 +17,7 @@ function Ticket() {
   const [cambio, setCambio] = useState(null);
 
   useEffect(() => {
+    setProductos(obtenerProductos());
     console.log("Valores recibidos en Ticket:");
     console.log("Dinero recibido:", dineroRecibido);
     console.log("Total precio:", totalPrecio);
@@ -33,21 +35,18 @@ function Ticket() {
     // Actualizar el estado del cambio
     setCambio(cambioAbsoluto);
 
-    const obtenerProductos = async () => {
-      try {
-        const response = await axios.get('https://snek22.000webhostapp.com/productos.php');
-        if (response.status === 200) {
-          setProductos(response.data);
-        } else {
-          console.error('Error al obtener productos');
-        }
-      } catch (error) {
-        console.error('Error:', error);
-      }
-    };
+    
 
-    obtenerProductos();
+    setProductos(obtenerProductos());
   }, []);
+
+  const handleVolverAlInventario = () => {
+    eliminarTodosLosProductos(); // Llamar a la función para eliminar todos los productos
+    navigation.reset({
+      index: 0,
+      routes: [{ name: 'Inventario' }],
+    });
+  };
 
   return (
     <SafeAreaView>
@@ -61,7 +60,7 @@ function Ticket() {
 
         <View style={{ height: '50%', marginTop: '5%', marginLeft: '2%' }}>
         <FlatList
-            data={productsData}
+            data={productos}
             keyExtractor={(item) => item.Nombre}
             renderItem={({ item, index }) => <ListFinal item={item} />}
             ItemSeparatorComponent={() => <View style={{ marginTop: 10 }}></View>}
@@ -77,10 +76,7 @@ function Ticket() {
         </View>
         <View style={{ marginTop: '7%', marginLeft: '10%' }}>
           <TouchableOpacity style={ButtonsLogin}
-            onPress={() => navigation.reset({
-              index: 0,
-              routes: [{ name: 'Inventario' }],
-            })}>
+            onPress={handleVolverAlInventario}>
             <Text style={{ fontSize: 16, fontWeight: 'bold', color: '#FFFFFF', marginLeft: '20%', marginTop: 10, }}>VOLVER AL INVENTARIO</Text>
           </TouchableOpacity>
         </View>

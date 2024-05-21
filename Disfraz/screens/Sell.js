@@ -3,7 +3,8 @@ import { View, Text, TextInput, SafeAreaView, ImageBackground, TouchableOpacity,
 import { Buttons, ButtonsNormal, ButtonsNormal2, Input, Subtitle2 } from './Styles';
 import { useNavigation } from '@react-navigation/native';
 import ListProductTicket from './ListProductTicket';
-import { obtenerProductos, sumarPreciosProductos, eliminarProductoPorId } from './ListProduct'; // Asegúrate de importar todas las funciones necesarias
+import { obtenerProductos, sumarPreciosProductos, eliminarProductoPorId } from './ListProduct';
+import axios from 'axios';
 
 const Sell = () => {
   const [currentDateTime, setCurrentDateTime] = useState('');
@@ -31,6 +32,31 @@ const Sell = () => {
 
   const totalPrecio = sumarPreciosProductos(productos);
 
+  const handleVender = async () => {
+    try {
+      const venta = {
+        id_producto:productos.id,
+        nombre_empleado: 'holis',
+        cantidad: 1,
+        productos,
+        dineroRecibido: parseFloat(dineroRecibido),
+        totalPrecio,
+        fecha: currentDateTime,
+      };
+
+      const response = await axios.post('https://snek22.000webhostapp.com/registrarventa.php', venta);
+
+      if (response.status === 200) {
+        console.log("Venta registrada exitosamente:", response.data);
+        navigation.navigate("Ticket", { dineroRecibido, totalPrecio, currentDateTime });
+      } else {
+        console.error("Error al registrar la venta:", response.data);
+      }
+    } catch (error) {
+      console.error("Error al realizar la solicitud:", error);
+    }
+  };
+
   return (
     <SafeAreaView>
       <ImageBackground
@@ -44,7 +70,7 @@ const Sell = () => {
         <View style={{ height: '50%', marginTop: '5%', marginLeft: '2%' }}>
           <FlatList
             data={productos}
-            keyExtractor={(item) => item.nombre}
+            keyExtractor={(item) => item.id}
             renderItem={({ item }) => <ListProductTicket item={item} onEliminarProducto={handleEliminarProducto} />}
             ItemSeparatorComponent={() => <View style={{ marginTop: 10 }}></View>}
           />
@@ -72,13 +98,13 @@ const Sell = () => {
           </TouchableOpacity>
           <TouchableOpacity
             style={[ButtonsNormal2, { marginTop: '-10%', marginLeft: '55%' }]}
-            onPress={() => navigation.navigate("Ticket", { dineroRecibido, totalPrecio, currentDateTime })}>
+            onPress={handleVender}>
             <Text style={[Buttons, { marginLeft: '20%' }]}>VENDER</Text>
           </TouchableOpacity>
         </View>
       </ImageBackground>
     </SafeAreaView>
-  )
+  );
 }
 
 export default Sell;

@@ -58,9 +58,13 @@ const Edit = ({ route }) => {
       source={require('./Images/background.png')}
       style={{width: '100%', height: '100%'}}>
       <ScrollView>
-      <View style={{marginLeft: '25%', marginTop: '3%'}}>
-      <Icons name="eye" color={'#B41C65'} size={200} />
-      </View>
+      <View style={{ marginLeft: '20%', marginTop: '3%' }}>
+  {producto.imagen ? (
+    <Image source={{ uri: producto.imagen }} style={{ width: 250, height: 250 }} />
+  ) : (
+    <Icons name="eye" color={'pink'} size={250} />
+  )}
+</View>
       <View style={{padding:'5%'}}>
         <Text style={[Subtitle2, {marginTop:20, marginLeft:10}]}>
           NOMBRE</Text>

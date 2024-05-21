@@ -28,7 +28,8 @@ function Product({ route }) {
       id: producto.id_producto,
       nombre: producto.nombre,
       precio: producto.precio_publico,
-      stock: producto.stock
+      stock: producto.stock,
+      imagen: producto.imagen,
     };
     agregarProducto(nuevoProducto); // Llama a la función agregarProducto y pasa el nuevo producto como argumento
     navigation.navigate('Venta', {producto})
@@ -71,11 +72,16 @@ function Product({ route }) {
         ) : (
           // Mostrar el contenido normal si Elim es false
           <View>
-            <View style={{ marginLeft: '20%', marginTop: '-8%' }}>
-              <Icons name="eye" color={'pink'} size={250} />
-            </View>
+            <View style={{ marginLeft: '20%', marginTop: '3%' }}>
+  {producto.imagen ? (
+    <Image source={{ uri: producto.imagen }} style={{ width: 250, height: 250 }} />
+  ) : (
+    <Icons name="eye" color={'pink'} size={250} />
+  )}
+</View>
 
-            <View style={{ marginLeft: '2%', marginTop: '-6%' }}>
+
+            <View style={{ marginLeft: '2%', marginTop: '3%' }}>
               <Text style={[Subtitle2, { marginTop: 20, marginLeft: 10 }]}>
                 NOMBRE: {producto.nombre}
               </Text>

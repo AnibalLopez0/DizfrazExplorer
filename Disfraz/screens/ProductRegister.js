@@ -35,7 +35,7 @@ const ProductRegister = () => {
       formData.append('precio', parseFloat(precio));
       formData.append('precio_publico', parseFloat(precio_publico));
       formData.append('stock', parseInt(stock));
-      formData.append('Talla', Talla);
+      formData.append('talla', Talla);
       formData.append('id_proveedor', selectedProveedor);
 
       if (imageSource) {

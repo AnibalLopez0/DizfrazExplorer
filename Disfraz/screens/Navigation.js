@@ -25,6 +25,7 @@ export default function App() {
           tabBarActiveBackgroundColor: "#000",
           tabBarInactiveTintColor: "#B41C65",
           tabBarInactiveBackgroundColor: "#FB8DC8",
+          
         }}
         options={{
           headerShown:false
@@ -36,6 +37,7 @@ export default function App() {
           tabBarIcon: ({ color, size }) => (
             <Icons name="cart" color={'#B41C65'} size={40} />
           ),
+          
           headerStyle:{
             backgroundColor: '#000',
           },
@@ -44,6 +46,7 @@ export default function App() {
           headerTitleStyle: {
             fontWeight: 'bold',
           },
+          headerShown: false
         }}/>
         <Tab.Screen name="Grafica" component={Graph} 
         options={{
