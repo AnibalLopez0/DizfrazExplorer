@@ -71,6 +71,14 @@ export const Background = {
     color: '#FFFFFF',
     marginLeft: 15,
   };
+
+  export const SubtitleInput2={
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: '#FFFFFF',
+    marginLeft: 0,
+  };
+
   export const Subtitle2={
     fontSize: 16,
     fontWeight: 'bold',

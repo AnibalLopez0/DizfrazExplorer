@@ -119,7 +119,7 @@ function Product({ route }) {
                 </Text>
               </View>
 
-              <View style={{ marginTop: '7%' }}>
+              <View style={{ marginTop: '4%' }}>
                 <TouchableOpacity
                   style={[ButtonsNormal, { marginLeft: 25 }]}
                   onPress={() => navigation.navigate('Editar', { producto })}>
